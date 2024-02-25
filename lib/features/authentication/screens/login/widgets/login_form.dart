@@ -1,7 +1,10 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
+
 import '../../../../../utils/constants/sizes.dart';
 import '../../../../../utils/constants/text_strings.dart';
-import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
+import '../../signup/signup.dart';
 
 class ZLoginForm extends StatelessWidget {
   const ZLoginForm({super.key});
@@ -49,7 +52,12 @@ class ZLoginForm extends StatelessWidget {
             const SizedBox(height: ZSizes.spaceBtwItems),
 
             /// Create Account Button
-            SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () {}, child: const Text(ZTexts.createAccount))),
+            SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () => Get.to(() => const SignUpScreen()),
+                  child: const Text(ZTexts.createAccount),
+                )),
           ],
         ),
       ),
