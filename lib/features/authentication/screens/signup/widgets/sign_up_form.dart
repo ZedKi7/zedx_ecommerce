@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../../../../utils/constants/sizes.dart';
 import '../../../../../utils/constants/text_strings.dart';
+import '../verify_email.dart';
 import 'terms_and_conditions_checkbox.dart';
 
 class ZSignUpForm extends StatelessWidget {
@@ -63,7 +65,9 @@ class ZSignUpForm extends StatelessWidget {
             const SizedBox(height: ZSizes.spaceBtwSections),
 
             /// Sign Up Button
-            SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () {}, child: const Text(ZTexts.createAccount))),
+            SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(onPressed: () => Get.to(() => const VerifyEmailScreen()), child: const Text(ZTexts.createAccount))),
           ],
         ),
       ),

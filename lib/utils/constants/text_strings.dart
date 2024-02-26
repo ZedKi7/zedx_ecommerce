@@ -6,7 +6,7 @@ class ZTexts {
   static const String done = "Done";
   static const String submit = "Submit";
   static const String appName = "Z-Store";
-  static const String tContinue = "Continue";
+  static const String zContinue = "Continue";
 
   // -- OnBoarding Texts
   static const String onBoardingTitle1 = "Choose your product";
