@@ -4,6 +4,7 @@ import 'package:iconsax/iconsax.dart';
 
 import '../../../../../utils/constants/sizes.dart';
 import '../../../../../utils/constants/text_strings.dart';
+import '../../password_configuration/forget_password.dart';
 import '../../signup/signup.dart';
 
 class ZLoginForm extends StatelessWidget {
@@ -42,7 +43,7 @@ class ZLoginForm extends StatelessWidget {
                 ),
 
                 /// Forget Password
-                TextButton(onPressed: () {}, child: const Text(ZTexts.forgetPassword)),
+                TextButton(onPressed: () => Get.to(() => const ForgetPasswordScreen()), child: const Text(ZTexts.forgetPassword)),
               ],
             ),
             const SizedBox(height: ZSizes.spaceBtwSections),
