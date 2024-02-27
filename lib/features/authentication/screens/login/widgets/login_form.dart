@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
+import '../../../../../navigation_menu.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../../../../utils/constants/text_strings.dart';
 import '../../password_configuration/forget_password.dart';
@@ -49,16 +50,20 @@ class ZLoginForm extends StatelessWidget {
             const SizedBox(height: ZSizes.spaceBtwSections),
 
             /// SignIn Button
-            SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () {}, child: const Text(ZTexts.signIn))),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(onPressed: () => Get.offAll(() => const NavigationMenu()), child: const Text(ZTexts.signIn)),
+            ),
             const SizedBox(height: ZSizes.spaceBtwItems),
 
             /// Create Account Button
             SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () => Get.to(() => const SignUpScreen()),
-                  child: const Text(ZTexts.createAccount),
-                )),
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () => Get.to(() => const SignUpScreen()),
+                child: const Text(ZTexts.createAccount),
+              ),
+            ),
           ],
         ),
       ),
