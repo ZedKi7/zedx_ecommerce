@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../common/widgets/custom_shapes/containers/primary_header_container.dart';
+import 'widgets/home_app_bar.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -11,9 +12,17 @@ class HomeScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            /// Header
             ZPrimaryHeaderContainer(
               child: Column(
-                children: [],
+                children: [
+                  /// AppBar
+                  ZHomeAppBar(),
+
+                  /// SearchBar
+
+                  /// Categories
+                ],
               ),
             ),
           ],
