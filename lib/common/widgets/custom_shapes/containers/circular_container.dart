@@ -10,10 +10,12 @@ class ZCircularContainer extends StatelessWidget {
     this.height = 400,
     this.radius = 400,
     this.padding = 0,
+    this.margin,
     this.backgroundColor = ZColors.white,
   });
 
   final double height, width, radius, padding;
+  final EdgeInsetsGeometry? margin;
   final Color backgroundColor;
   final Widget? child;
 
@@ -22,6 +24,7 @@ class ZCircularContainer extends StatelessWidget {
     return Container(
       width: width,
       height: height,
+      margin: margin,
       padding: EdgeInsets.all(padding),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(radius),
