@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../../common/widgets/custom_shapes/containers/primary_header_container.dart';
 import '../../../../common/widgets/custom_shapes/containers/search_container.dart';
+import '../../../../common/widgets/layouts/grid_layout.dart';
+import '../../../../common/widgets/products/products_cards/product_card_vertical.dart';
 import '../../../../common/widgets/texts/section_heading.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/image_strings.dart';
@@ -15,12 +17,12 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
             /// Header
-            ZPrimaryHeaderContainer(
+            const ZPrimaryHeaderContainer(
               child: Column(
                 children: [
                   /// AppBar
@@ -55,9 +57,20 @@ class HomeScreen extends StatelessWidget {
 
             /// Body
             Padding(
-              padding: EdgeInsets.all(ZSizes.defaultSpace),
-              child: ZPromoSlider(
-                banners: [ZImages.promoBanner1, ZImages.promoBanner2, ZImages.promoBanner3],
+              padding: const EdgeInsets.all(ZSizes.defaultSpace),
+              child: Column(
+                children: [
+                  /// Promo Slider
+
+                  const ZPromoSlider(banners: [ZImages.promoBanner1, ZImages.promoBanner2, ZImages.promoBanner3]),
+                  const SizedBox(height: ZSizes.spaceBtwSections),
+
+                  /// Popular Products
+                  ZGridLayout(
+                    itemCount: 4,
+                    itemBuilder: (_, index) => const ZProductCardVertical(),
+                  ),
+                ],
               ),
             ),
           ],
