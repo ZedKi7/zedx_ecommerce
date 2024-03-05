@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 
 class ZRoundedImage extends StatelessWidget {
@@ -16,14 +15,14 @@ class ZRoundedImage extends StatelessWidget {
     this.isNetworkImage = false,
     this.applyImageRadius = true,
     this.borderRadius = ZSizes.md,
-    this.backgroundColor = ZColors.light,
+    this.backgroundColor,
   });
 
   final double? width, height;
   final String imageUrl;
   final bool applyImageRadius, isNetworkImage;
   final BoxBorder? border;
-  final Color backgroundColor;
+  final Color? backgroundColor;
   final BoxFit? fit;
   final EdgeInsetsGeometry? padding;
   final VoidCallback? onPressed;

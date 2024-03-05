@@ -9,6 +9,7 @@ import '../../../styles/shadow_styles.dart';
 import '../../custom_shapes/containers/rounded_container.dart';
 import '../../icons/circular_icon.dart';
 import '../../images/rounded_image.dart';
+import '../../texts/brand_title_with_verified_icon.dart';
 import '../../texts/product_price_text.dart';
 import '../../texts/product_title_text.dart';
 
@@ -32,7 +33,6 @@ class ZProductCardVertical extends StatelessWidget {
         child: Column(
           children: [
             /// Thumbnail, Wishlist Button, Discount Tag
-
             ZRoundedContainer(
               height: 180,
               padding: const EdgeInsets.all(ZSizes.sm),
@@ -68,47 +68,44 @@ class ZProductCardVertical extends StatelessWidget {
             const SizedBox(height: ZSizes.spaceBtwItems / 2),
 
             /// Details
-
-            Padding(
-              padding: const EdgeInsets.only(left: ZSizes.sm),
+            const Padding(
+              padding: EdgeInsets.only(left: ZSizes.sm),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const ZProductTitleText(title: 'Green Nike Air Shoes', smallSize: true),
-                  const SizedBox(height: ZSizes.spaceBtwItems / 2),
-                  Row(
-                    children: [
-                      Text('Nike', style: Theme.of(context).textTheme.labelMedium, overflow: TextOverflow.ellipsis, maxLines: 1),
-                      const SizedBox(height: ZSizes.xs),
-                      const Icon(Iconsax.verify5, color: ZColors.primary, size: ZSizes.iconXs),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      /// Price
-                      const ZProductPriceText(price: '35.5'),
-
-                      /// Add to Cart Button
-                      Container(
-                        decoration: const BoxDecoration(
-                          color: ZColors.dark,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(ZSizes.cardRadiusMd),
-                            bottomRight: Radius.circular(ZSizes.productImageRadius),
-                          ),
-                        ),
-                        child: const SizedBox(
-                          width: ZSizes.iconLg * 1.2,
-                          height: ZSizes.iconLg * 1.2,
-                          child: Center(child: Icon(Iconsax.add, color: ZColors.white)),
-                        ),
-                      ),
-                    ],
-                  ),
+                  ZProductTitleText(title: 'Green Nike Air Shoes', smallSize: true),
+                  SizedBox(height: ZSizes.spaceBtwItems / 2),
+                  ZBrandTitleWithVerifiedIcon(title: 'Nike'),
                 ],
               ),
-            )
+            ),
+            const Spacer(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                /// Price
+                const Padding(
+                  padding: EdgeInsets.only(left: ZSizes.sm),
+                  child: ZProductPriceText(price: '35.5'),
+                ),
+
+                /// Add to Cart Button
+                Container(
+                  decoration: const BoxDecoration(
+                    color: ZColors.dark,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(ZSizes.cardRadiusMd),
+                      bottomRight: Radius.circular(ZSizes.productImageRadius),
+                    ),
+                  ),
+                  child: const SizedBox(
+                    width: ZSizes.iconLg * 1.2,
+                    height: ZSizes.iconLg * 1.2,
+                    child: Center(child: Icon(Iconsax.add, color: ZColors.white)),
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),

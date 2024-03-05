@@ -30,7 +30,7 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(height: ZSizes.spaceBtwSections),
 
                   /// SearchBar
-                  ZSearchContainer(text: 'Search in Store'),
+                  ZSearchContainer(text: 'Search in Store', showBorder: false),
                   SizedBox(height: ZSizes.spaceBtwSections),
 
                   /// Categories
@@ -61,9 +61,12 @@ class HomeScreen extends StatelessWidget {
               child: Column(
                 children: [
                   /// Promo Slider
-
                   const ZPromoSlider(banners: [ZImages.promoBanner1, ZImages.promoBanner2, ZImages.promoBanner3]),
                   const SizedBox(height: ZSizes.spaceBtwSections),
+
+                  /// Heading
+                  ZSectionHeading(title: 'Popular Products', onPressed: () {}),
+                  const SizedBox(height: ZSizes.spaceBtwItems),
 
                   /// Popular Products
                   ZGridLayout(
