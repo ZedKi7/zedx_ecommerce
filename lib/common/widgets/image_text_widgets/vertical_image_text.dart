@@ -10,7 +10,7 @@ class ZVerticalImageText extends StatelessWidget {
     required this.title,
     required this.image,
     this.textColor = ZColors.white,
-    this.backgroundColor = ZColors.white,
+    this.backgroundColor,
     this.onTap,
   });
 
