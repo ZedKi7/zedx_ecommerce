@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../../../common/widgets/appbar/appbar.dart';
@@ -8,6 +9,7 @@ import '../../../../common/widgets/list_tiles/user_profile_tile.dart';
 import '../../../../common/widgets/texts/section_heading.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
+import '../profile/profile.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -26,7 +28,7 @@ class SettingsScreen extends StatelessWidget {
                   ZAppBar(title: Text('Account', style: Theme.of(context).textTheme.headlineMedium!.apply(color: ZColors.white))),
 
                   /// User Profile Card
-                  const ZUserProfileTile(),
+                  ZUserProfileTile(onPressed: () => Get.to(() => const ProfileScreen())),
                   const SizedBox(height: ZSizes.spaceBtwSections),
                 ],
               ),
