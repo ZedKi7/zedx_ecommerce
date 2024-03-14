@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:readmore/readmore.dart';
 
 import '../../../../common/widgets/texts/section_heading.dart';
 import '../../../../utils/constants/sizes.dart';
+import '../product_reviews/product_reviews.dart';
 import 'widgets/bottom_add_to_cart.dart';
 import 'widgets/product_attributes.dart';
 import 'widgets/product_image_slider.dart';
@@ -49,8 +51,8 @@ class ProductDetailsScreen extends StatelessWidget {
                     'This is a product edscription for Blue Nike Sleeve less vest. There are more things that can be added ...',
                     trimLines: 2,
                     trimMode: TrimMode.Line,
-                    trimCollapsedText: 'Show more',
-                    trimExpandedText: 'Less',
+                    trimCollapsedText: ' Show more',
+                    trimExpandedText: ' Show less',
                     moreStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
                     lessStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
                   ),
@@ -62,7 +64,7 @@ class ProductDetailsScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const ZSectionHeading(title: 'Reviews(199)', showActionButton: false),
-                      IconButton(onPressed: () {}, icon: const Icon(Iconsax.arrow_right_3, size: 18)),
+                      IconButton(onPressed: () => Get.to(() => const ProductReviewsScreen()), icon: const Icon(Iconsax.arrow_right_3, size: 18)),
                     ],
                   ),
 
