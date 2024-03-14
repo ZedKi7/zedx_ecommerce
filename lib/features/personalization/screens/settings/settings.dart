@@ -9,6 +9,7 @@ import '../../../../common/widgets/list_tiles/user_profile_tile.dart';
 import '../../../../common/widgets/texts/section_heading.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
+import '../address/address.dart';
 import '../profile/profile.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -43,7 +44,12 @@ class SettingsScreen extends StatelessWidget {
                   const ZSectionHeading(title: 'Account Settings', showActionButton: false),
                   const SizedBox(height: ZSizes.spaceBtwItems),
 
-                  const ZSettingMenuTile(icon: Iconsax.safe_home, title: 'My Addresses', subtitle: 'Set shopping delivery address'),
+                  ZSettingMenuTile(
+                    icon: Iconsax.safe_home,
+                    title: 'My Addresses',
+                    subtitle: 'Set shopping delivery address',
+                    onTap: () => Get.to(() => const UserAddressScreen()),
+                  ),
                   const ZSettingMenuTile(icon: Iconsax.shopping_cart, title: 'My Cart', subtitle: 'Add, remove products and move to checkout'),
                   const ZSettingMenuTile(icon: Iconsax.bag_tick, title: 'My Orders', subtitle: 'In-progress and Completed Orders'),
                   const ZSettingMenuTile(icon: Iconsax.bank, title: 'Bank Account', subtitle: 'Withdraw balance to registered bank account'),
