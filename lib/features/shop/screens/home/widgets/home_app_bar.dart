@@ -21,7 +21,7 @@ class ZHomeAppBar extends StatelessWidget {
         ],
       ),
       actions: [
-        ZCartCounterIcon(onPressed: () {}),
+        ZCartCounterIcon(onPressed: () {}, iconColor: ZColors.white, counterBgColor: ZColors.black, counterTextColor: ZColors.white),
       ],
     );
   }
