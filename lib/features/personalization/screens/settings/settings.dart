@@ -9,6 +9,7 @@ import '../../../../common/widgets/list_tiles/user_profile_tile.dart';
 import '../../../../common/widgets/texts/section_heading.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
+import '../../../shop/screens/orders/orders.dart';
 import '../address/address.dart';
 import '../profile/profile.dart';
 
@@ -51,7 +52,12 @@ class SettingsScreen extends StatelessWidget {
                     onTap: () => Get.to(() => const UserAddressScreen()),
                   ),
                   const ZSettingMenuTile(icon: Iconsax.shopping_cart, title: 'My Cart', subtitle: 'Add, remove products and move to checkout'),
-                  const ZSettingMenuTile(icon: Iconsax.bag_tick, title: 'My Orders', subtitle: 'In-progress and Completed Orders'),
+                  ZSettingMenuTile(
+                    icon: Iconsax.bag_tick,
+                    title: 'My Orders',
+                    subtitle: 'In-progress and Completed Orders',
+                    onTap: () => Get.to(() => const OrdersScreen()),
+                  ),
                   const ZSettingMenuTile(icon: Iconsax.bank, title: 'Bank Account', subtitle: 'Withdraw balance to registered bank account'),
                   const ZSettingMenuTile(icon: Iconsax.discount_shape, title: 'My Coupons', subtitle: 'List of all the discounted coupons'),
                   const ZSettingMenuTile(icon: Iconsax.notification, title: 'Notifications', subtitle: 'Set any kind of notification message'),
