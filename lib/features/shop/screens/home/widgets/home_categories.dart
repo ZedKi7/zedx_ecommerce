@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../../../common/widgets/image_text_widgets/vertical_image_text.dart';
 import '../../../../../utils/constants/image_strings.dart';
+import '../../sub_category/sub_category.dart';
 
 class ZHomeCategories extends StatelessWidget {
   const ZHomeCategories({
@@ -20,7 +22,7 @@ class ZHomeCategories extends StatelessWidget {
           return ZVerticalImageText(
             title: 'Shoes',
             image: ZImages.sportIcon,
-            onTap: () {},
+            onTap: () => Get.to(() => const SubCategoriesScreen()),
           );
         },
       ),

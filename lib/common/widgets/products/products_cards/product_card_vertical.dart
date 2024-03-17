@@ -30,7 +30,7 @@ class ZProductCardVertical extends StatelessWidget {
         decoration: BoxDecoration(
           boxShadow: [ZShadowStyle.verticalProductShadow],
           borderRadius: BorderRadius.circular(ZSizes.productImageRadius),
-          color: dark ? ZColors.darkGrey : ZColors.white,
+          color: dark ? ZColors.darkerGrey : ZColors.white,
         ),
         child: Column(
           children: [
