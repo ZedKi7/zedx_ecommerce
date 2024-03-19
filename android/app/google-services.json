@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "826073515394",
+    "project_id": "zedxecommerce",
+    "storage_bucket": "zedxecommerce.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:826073515394:android:79ead606414503f90c3b9b",
+        "android_client_info": {
+          "package_name": "com.zedki7.zedx_ecommerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "826073515394-n93kkas3u11f8ifmenktgjcfgafqnbmg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zedki7.zedx_ecommerce",
+            "certificate_hash": "30378bfddabf775ce329b7ddae903be2bf242f47"
+          }
+        },
+        {
+          "client_id": "826073515394-2hdct8o8ts6d7u7raie8jrb2bodm7djp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpaQx9F3CK9iEvfcUA2WDc5EhLJ_B0Ak4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "826073515394-2hdct8o8ts6d7u7raie8jrb2bodm7djp.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "826073515394-d975dlpt21qoobqlcnhgqf1e5094ho4a.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.zedki7.zedxEcommerce"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
