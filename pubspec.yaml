@@ -14,6 +14,7 @@ dependencies:
   http: 
   intl:
   logger:
+  lottie:
   url_launcher:
   flutter_native_splash:
   smooth_page_indicator:
@@ -35,6 +36,8 @@ dependencies:
 
   #Firebase
   firebase_core:
+  firebase_auth:
+  cloud_firestore:
   firebase_storage:
 
 dev_dependencies:

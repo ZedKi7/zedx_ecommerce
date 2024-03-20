@@ -1,9 +1,10 @@
 import 'dart:async';
-import 'package:get/get.dart';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
-// import '../popups/loaders.dart';
+import '../../common/widgets/loaders/loaders.dart';
 
 /// Manages the network connectivity status and provides methods to check and handle connectivity changes.
 class NetworkManager extends GetxController {
@@ -24,7 +25,7 @@ class NetworkManager extends GetxController {
   Future<void> _updateConnectionStatus(ConnectivityResult result) async {
     _connectionStatus.value = result;
     if (_connectionStatus.value == ConnectivityResult.none) {
-      // ZLoaders.warningSnackBar(title: 'No Internet Connection');
+      ZLoaders.warningSnackBar(title: 'No Internet Connection');
     }
   }
 
