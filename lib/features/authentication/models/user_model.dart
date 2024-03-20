@@ -68,5 +68,6 @@ class UserModel {
         profilePicture: data["profilePicture"] ?? '',
       );
     }
+    throw Exception("Failed to create UserModel from snapshot."); // Add throw statement
   }
 }

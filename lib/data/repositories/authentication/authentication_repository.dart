@@ -6,6 +6,12 @@ import 'package:get_storage/get_storage.dart';
 
 import '../../../features/authentication/screens/login/login.dart';
 import '../../../features/authentication/screens/onboarding/onboarding.dart';
+import '../../../features/authentication/screens/signup/verify_email.dart';
+import '../../../navigation_menu.dart';
+import '../../../utils/exceptions/firebase_auth_exceptions.dart';
+import '../../../utils/exceptions/firebase_exceptions.dart';
+import '../../../utils/exceptions/format_exceptions.dart';
+import '../../../utils/exceptions/platform_exceptions.dart';
 
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
@@ -13,17 +19,32 @@ class AuthenticationRepository extends GetxController {
   final deviceStorage = GetStorage();
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  /// Called from main.dart on app launch
   @override
   void onReady() {
+    // Remove the native splash screen
     FlutterNativeSplash.remove();
+    // Redirect to the relevant screen
     screenRedirect();
   }
 
   /// Function to Show Relevant Screen
   void screenRedirect() async {
-    /// Local Storage
-    deviceStorage.writeIfNull('isFirstTime', true);
-    deviceStorage.read('isFirstTime') != true ? Get.offAll(() => const LoginScreen()) : Get.offAll(() => const OnBoardingScreen());
+    final User? user = _auth.currentUser;
+    if (user != null) {
+      if (user.emailVerified) {
+        Get.offAll(() => const NavigationMenu());
+      } else {
+        Get.offAll(() => VerifyEmailScreen(email: _auth.currentUser?.email));
+      }
+    } else {
+      // Local Storage
+      deviceStorage.writeIfNull('isFirstTime', true);
+      // Check if it's the first time launching the app
+      deviceStorage.read('isFirstTime') != true
+          ? Get.offAll(() => const LoginScreen()) // Redirect to Login Screen if it's not the first time
+          : Get.offAll(() => const OnBoardingScreen()); // Redirect to OnBoarding Screen if it's the first time
+    }
   }
 
   /* -------------------------------------------------------- Email & Password SignIn -------------------------------------------------------- */
@@ -37,12 +58,56 @@ class AuthenticationRepository extends GetxController {
       throw ZFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {
       throw ZFirebaseException(e.code).message;
-    } on FormatException catch (e) {
-      throw ZFormatException(e.code).message;
+    } on FormatException catch (_) {
+      throw const ZFormatException();
     } on PlatformException catch (e) {
       throw ZPlatformException(e.code).message;
     } catch (e) {
       throw 'Something went wrong. Please try again!';
     }
   }
+
+  /// [EmailVerification] - Mail Verification
+  Future<void> sendEmailVerification() async {
+    try {
+      await _auth.currentUser?.sendEmailVerification();
+    } on FirebaseAuthException catch (e) {
+      throw ZFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw ZFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const ZFormatException();
+    } on PlatformException catch (e) {
+      throw ZPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again!';
+    }
+  }
+
+  /* --------------------------------------------- Federated identity & Social SignIn --------------------------------------------- */
+  /// [GoogleAuthentication] - Google
+
+  /// [FacebookAuthentication] - Facebook
+
+  /* ------------------------------------------------------------------------------------------------------------------------------ */
+
+  /// [LogoutUser] - Valid for any authentication
+  Future<void> logout() async {
+    try {
+      await _auth.signOut();
+      Get.offAll(() => const LoginScreen());
+    } on FirebaseAuthException catch (e) {
+      throw ZFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw ZFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const ZFormatException();
+    } on PlatformException catch (e) {
+      throw ZPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again!';
+    }
+  }
+
+  /// [LogoutUser] - Remove user Auth and Firestore Account
 }

@@ -26,7 +26,7 @@ class SignUpController extends GetxController {
   void signup() async {
     try {
       // Start Loading
-      ZFullScreenLoader.openLoadingDialog('We are processing your information', ZImages.docerAnimation);
+      ZFullScreenLoader.openLoadingDialog('We are processing your information...', ZImages.docerAnimation);
 
       // Check Internet Connectivity
       final isConnected = await NetworkManager.instance.isConnected();
@@ -79,7 +79,7 @@ class SignUpController extends GetxController {
       ZLoaders.successSnackBar(title: 'Congratulations', message: 'Your account has been created! Verify email to continue.');
 
       // Move to Verify Email Screen
-      Get.to(() => const VerifyEmailScreen());
+      Get.to(() => VerifyEmailScreen(email: email.text.trim()));
     } catch (e) {
       // Remove the loader
       ZFullScreenLoader.stopLoading();

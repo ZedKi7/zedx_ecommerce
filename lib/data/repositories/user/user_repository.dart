@@ -3,6 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../../features/authentication/models/user_model.dart';
+import '../../../utils/exceptions/firebase_exceptions.dart';
+import '../../../utils/exceptions/format_exceptions.dart';
+import '../../../utils/exceptions/platform_exceptions.dart';
 
 class UserRepository extends GetxController {
   static UserRepository get instance => Get.find();
@@ -15,8 +18,8 @@ class UserRepository extends GetxController {
       return await _db.collection('Users').doc(newUser.id).set(newUser.toJson());
     } on FirebaseException catch (e) {
       throw ZFirebaseException(e.code).message;
-    } on FormatException catch (e) {
-      throw ZFormatException(e.code).message;
+    } on FormatException catch (_) {
+      throw const ZFormatException();
     } on PlatformException catch (e) {
       throw ZPlatformException(e.code).message;
     } catch (e) {
