@@ -32,9 +32,12 @@ class AuthenticationRepository extends GetxController {
   void screenRedirect() async {
     final User? user = _auth.currentUser;
     if (user != null) {
+      // If the user is logged in
       if (user.emailVerified) {
+        // If the user's email is verified, navigate to the main Navigation Menu
         Get.offAll(() => const NavigationMenu());
       } else {
+        // If the user's email is not verified, navigate to VerifyEmailScreen
         Get.offAll(() => VerifyEmailScreen(email: _auth.currentUser?.email));
       }
     } else {
@@ -49,6 +52,21 @@ class AuthenticationRepository extends GetxController {
 
   /* -------------------------------------------------------- Email & Password SignIn -------------------------------------------------------- */
   /// [EmailAuthentication] - SignIn
+  Future<UserCredential> loginWithEmailAndPassword(String email, String password) async {
+    try {
+      return await _auth.signInWithEmailAndPassword(email: email, password: password);
+    } on FirebaseAuthException catch (e) {
+      throw ZFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw ZFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const ZFormatException();
+    } on PlatformException catch (e) {
+      throw ZPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again!';
+    }
+  }
 
   /// [EmailAuthentication] - Register
   Future<UserCredential> registerWithEmailAndPassword(String email, String password) async {

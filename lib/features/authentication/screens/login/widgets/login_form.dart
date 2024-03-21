@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
-import '../../../../../navigation_menu.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../../../../utils/constants/text_strings.dart';
+import '../../../../../utils/validators/validation.dart';
+import '../../../controllers/login/login_controller.dart';
 import '../../password_configuration/forget_password.dart';
 import '../../signup/signup.dart';
 
@@ -13,22 +14,38 @@ class ZLoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loginController = Get.put(LoginController());
+
     return Form(
+      key: loginController.loginFormKey,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: ZSizes.spaceBtwSections),
         child: Column(
           children: [
             /// Email
-            TextFormField(decoration: const InputDecoration(prefixIcon: Icon(Iconsax.direct_right), labelText: ZTexts.email)),
+            TextFormField(
+              controller: loginController.email,
+              validator: (value) => ZValidator.validateEmail(value),
+              decoration: const InputDecoration(prefixIcon: Icon(Iconsax.direct_right), labelText: ZTexts.email),
+            ),
             const SizedBox(height: ZSizes.spaceBtwInputFields),
 
             /// Password
-            TextFormField(
-                decoration: const InputDecoration(
-              prefixIcon: Icon(Iconsax.password_check),
-              labelText: ZTexts.password,
-              suffixIcon: Icon(Iconsax.eye_slash),
-            )),
+            Obx(
+              () => TextFormField(
+                validator: (value) => ZValidator.validatePassword(value),
+                controller: loginController.password,
+                obscureText: loginController.hidePassword.value,
+                decoration: InputDecoration(
+                  labelText: ZTexts.password,
+                  prefixIcon: const Icon(Iconsax.password_check),
+                  suffixIcon: IconButton(
+                    onPressed: () => loginController.hidePassword.value = !loginController.hidePassword.value,
+                    icon: Icon(loginController.hidePassword.value ? Iconsax.eye_slash : Iconsax.eye),
+                  ),
+                ),
+              ),
+            ),
             const SizedBox(height: ZSizes.spaceBtwInputFields / 2),
 
             /// Remember Me & Forget Password
@@ -38,7 +55,12 @@ class ZLoginForm extends StatelessWidget {
                 /// Remember Me
                 Row(
                   children: [
-                    Checkbox(value: true, onChanged: (value) {}),
+                    Obx(
+                      () => Checkbox(
+                        value: loginController.rememberMe.value = !loginController.rememberMe.value,
+                        onChanged: (value) => loginController.rememberMe.value = !loginController.rememberMe.value,
+                      ),
+                    ),
                     const Text(ZTexts.rememberMe),
                   ],
                 ),
@@ -52,7 +74,7 @@ class ZLoginForm extends StatelessWidget {
             /// SignIn Button
             SizedBox(
               width: double.infinity,
-              child: ElevatedButton(onPressed: () => Get.offAll(() => const NavigationMenu()), child: const Text(ZTexts.signIn)),
+              child: ElevatedButton(onPressed: () => loginController.singInWithEmailAndPassword(), child: const Text(ZTexts.signIn)),
             ),
             const SizedBox(height: ZSizes.spaceBtwItems),
 
