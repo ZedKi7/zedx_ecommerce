@@ -7,6 +7,7 @@ import '../../../../data/repositories/authentication/authentication_repository.d
 import '../../../../utils/constants/image_strings.dart';
 import '../../../../utils/helpers/network_manager.dart';
 import '../../../../utils/popups/full_screen_loader.dart';
+import '../../../personalization/controllers/user_controller.dart';
 
 class LoginController extends GetxController {
   static LoginController get instance => Get.find();
@@ -17,6 +18,8 @@ class LoginController extends GetxController {
   final email = TextEditingController();
   final password = TextEditingController();
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
+
+  final userController = Get.put(UserController());
 
   @override
   void onInit() {
@@ -29,7 +32,7 @@ class LoginController extends GetxController {
   Future<void> singInWithEmailAndPassword() async {
     try {
       // Start Loading
-      ZFullScreenLoader.openLoadingDialog('Loggin you in...', ZImages.docerAnimation);
+      ZFullScreenLoader.openLoadingDialog('Logging you in...', ZImages.docerAnimation);
 
       // Check Internet Connectivity
       final isConnected = await NetworkManager.instance.isConnected();
@@ -54,6 +57,40 @@ class LoginController extends GetxController {
 
       // Login user using Email & Password
       await AuthenticationRepository.instance.loginWithEmailAndPassword(email.text.trim(), password.text.trim());
+
+      // Remove the loader
+      ZFullScreenLoader.stopLoading();
+
+      // Redirect
+      AuthenticationRepository.instance.screenRedirect();
+    } catch (e) {
+      // Remove the loader
+      ZFullScreenLoader.stopLoading();
+
+      // Show some Generic Error to the user
+      ZLoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
+    }
+  }
+
+  /// Google SignIn Authentication
+  Future<void> googleSignIn() async {
+    try {
+      // Start Loading
+      ZFullScreenLoader.openLoadingDialog('Logging you in...', ZImages.docerAnimation);
+
+      // Check Internet Connectivity
+      final isConnected = await NetworkManager.instance.isConnected();
+      if (!isConnected) {
+        // Remove the loader
+        ZFullScreenLoader.stopLoading();
+        return;
+      }
+
+      // Google Authentication
+      final userCredentials = await AuthenticationRepository.instance.signInWithGoogle();
+
+      // Save User Record
+      await userController.saveUserRecord(userCredentials);
 
       // Remove the loader
       ZFullScreenLoader.stopLoading();

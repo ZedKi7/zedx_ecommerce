@@ -40,6 +40,8 @@ dependencies:
   cloud_firestore:
   firebase_storage:
 
+  google_sign_in:
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
