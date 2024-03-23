@@ -2,17 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
+import '../../../../common/widgets/appbar/appbar.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/constants/text_strings.dart';
-import 'reset_password.dart';
+import '../../../../utils/validators/validation.dart';
+import '../../controllers/forget_password/forget_password_controller.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
   const ForgetPasswordScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final forgetPasswordController = Get.put(ForgetPasswordController());
+
     return Scaffold(
-      appBar: AppBar(),
+      appBar: const ZAppBar(),
       body: Padding(
         padding: const EdgeInsets.all(ZSizes.defaultSpace),
         child: Column(
@@ -25,10 +29,15 @@ class ForgetPasswordScreen extends StatelessWidget {
             const SizedBox(height: ZSizes.spaceBtwSections * 2),
 
             /// Text field
-            TextFormField(
-              decoration: const InputDecoration(
-                labelText: ZTexts.email,
-                prefixIcon: Icon(Iconsax.direct_right),
+            Form(
+              key: forgetPasswordController.forgetPasswordFormKey,
+              child: TextFormField(
+                controller: forgetPasswordController.email,
+                validator: ZValidator.validateEmail,
+                decoration: const InputDecoration(
+                  labelText: ZTexts.email,
+                  prefixIcon: Icon(Iconsax.direct_right),
+                ),
               ),
             ),
             const SizedBox(height: ZSizes.spaceBtwSections),
@@ -37,7 +46,7 @@ class ForgetPasswordScreen extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () => Get.to(() => const ResetPasswordScreen()),
+                onPressed: () => forgetPasswordController.sendPasswordResetEmail(),
                 child: const Text(ZTexts.submit),
               ),
             ),
