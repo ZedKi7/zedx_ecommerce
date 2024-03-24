@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../../../common/widgets/appbar/appbar.dart';
@@ -6,6 +7,8 @@ import '../../../../common/widgets/images/circular_image.dart';
 import '../../../../common/widgets/texts/section_heading.dart';
 import '../../../../utils/constants/image_strings.dart';
 import '../../../../utils/constants/sizes.dart';
+import '../../controllers/user_controller.dart';
+import 'change_name.dart';
 import 'widgets/profile_menu.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -13,6 +16,8 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userController = UserController.instance;
+
     return Scaffold(
       appBar: const ZAppBar(title: Text('Profile'), showBackArrow: true),
 
@@ -42,8 +47,8 @@ class ProfileScreen extends StatelessWidget {
               const ZSectionHeading(title: 'Profile Information', showActionButton: false),
               const SizedBox(height: ZSizes.spaceBtwItems),
 
-              ZProfileMenu(title: 'Name', value: 'Coding with Z', onTap: () {}),
-              ZProfileMenu(title: 'Username', value: 'coding_with_z', onTap: () {}),
+              ZProfileMenu(title: 'Name', value: userController.user.value.fullName, onTap: () => Get.to(() => const ChangeNameScreen())),
+              ZProfileMenu(title: 'Username', value: userController.user.value.username, onTap: () {}),
 
               const SizedBox(height: ZSizes.spaceBtwItems),
               const Divider(),
@@ -53,9 +58,9 @@ class ProfileScreen extends StatelessWidget {
               const ZSectionHeading(title: 'Personal Information', showActionButton: false),
               const SizedBox(height: ZSizes.spaceBtwItems),
 
-              ZProfileMenu(title: 'User ID', value: '45689', icon: Iconsax.copy, onTap: () {}),
-              ZProfileMenu(title: 'E-mail', value: 'coding_with_z', onTap: () {}),
-              ZProfileMenu(title: 'Phone Number', value: '+92-317-8059528', onTap: () {}),
+              ZProfileMenu(title: 'User ID', value: userController.user.value.id, icon: Iconsax.copy, onTap: () {}),
+              ZProfileMenu(title: 'E-mail', value: userController.user.value.email, onTap: () {}),
+              ZProfileMenu(title: 'Phone Number', value: userController.user.value.phoneNumber, onTap: () {}),
               ZProfileMenu(title: 'Gender', value: 'Male', onTap: () {}),
               ZProfileMenu(title: 'Date of Birth', value: '10 Oct, 1994', onTap: () {}),
 
@@ -64,7 +69,7 @@ class ProfileScreen extends StatelessWidget {
 
               Center(
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () => userController.deleteAccountWarningPopup(),
                   child: const Text('Close Account', style: TextStyle(color: Colors.red)),
                 ),
               ),

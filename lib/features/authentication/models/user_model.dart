@@ -60,14 +60,15 @@ class UserModel {
       final data = documentSnapshot.data()!;
       return UserModel(
         id: documentSnapshot.id,
-        firstName: data["firstName"] ?? '',
-        lastName: data["lastName"] ?? '',
-        username: data["username"] ?? '',
-        email: data["email"] ?? '',
-        phoneNumber: data["phoneNumber"] ?? '',
-        profilePicture: data["profilePicture"] ?? '',
+        firstName: data["FirstName"] ?? '',
+        lastName: data["LastName"] ?? '',
+        username: data["Username"] ?? '',
+        email: data["Email"] ?? '',
+        phoneNumber: data["PhoneNumber"] ?? '',
+        profilePicture: data["ProfilePicture"] ?? '',
       );
+    } else {
+      return UserModel.empty();
     }
-    throw Exception("Failed to create UserModel from snapshot."); // Add throw statement
   }
 }

@@ -15,6 +15,7 @@ dependencies:
   intl:
   logger:
   lottie:
+  shimmer:
   url_launcher:
   flutter_native_splash:
   smooth_page_indicator:
