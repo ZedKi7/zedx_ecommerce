@@ -4,7 +4,7 @@ import 'package:iconsax/iconsax.dart';
 
 import '../../../../common/widgets/appbar/appbar.dart';
 import '../../../../common/widgets/images/circular_image.dart';
-import '../../../../common/widgets/loaders/shimmer_effect.dart';
+import '../../../../common/widgets/shimmers/shimmer_effect.dart';
 import '../../../../common/widgets/texts/section_heading.dart';
 import '../../../../utils/constants/image_strings.dart';
 import '../../../../utils/constants/sizes.dart';

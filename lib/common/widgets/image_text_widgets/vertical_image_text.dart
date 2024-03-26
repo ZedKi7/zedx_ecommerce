@@ -3,20 +3,23 @@ import 'package:flutter/material.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 import '../../../utils/helpers/helper_functions.dart';
+import '../images/circular_image.dart';
 
 class ZVerticalImageText extends StatelessWidget {
   const ZVerticalImageText({
     super.key,
+    this.onTap,
     required this.title,
     required this.image,
-    this.textColor = ZColors.white,
     this.backgroundColor,
-    this.onTap,
+    this.isNetworkImage = true,
+    this.textColor = ZColors.white,
   });
 
   final String title, image;
   final Color textColor;
   final Color? backgroundColor;
+  final bool isNetworkImage;
   final VoidCallback? onTap;
 
   @override
@@ -30,21 +33,13 @@ class ZVerticalImageText extends StatelessWidget {
         child: Column(
           children: [
             /// Circular Icon
-            Container(
-              width: 56,
-              height: 56,
-              padding: const EdgeInsets.all(ZSizes.sm),
-              decoration: BoxDecoration(
-                color: backgroundColor ?? (dark ? ZColors.black : ZColors.white),
-                borderRadius: BorderRadius.circular(100),
-              ),
-              child: Center(
-                child: Image.asset(
-                  image,
-                  fit: BoxFit.cover,
-                  color: dark ? ZColors.light : ZColors.dark,
-                ),
-              ),
+            ZCircularImage(
+              image: image,
+              fit: BoxFit.fitWidth,
+              padding: ZSizes.sm * 1.4,
+              isNetworkImage: isNetworkImage,
+              backgroundColor: backgroundColor,
+              overlayColor: dark ? ZColors.light : ZColors.dark,
             ),
 
             /// Category Name
