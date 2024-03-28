@@ -5,9 +5,11 @@ import '../../../../common/widgets/custom_shapes/containers/primary_header_conta
 import '../../../../common/widgets/custom_shapes/containers/search_container.dart';
 import '../../../../common/widgets/layouts/grid_layout.dart';
 import '../../../../common/widgets/products/products_cards/product_card_vertical.dart';
+import '../../../../common/widgets/shimmers/vertical_product_shimmer.dart';
 import '../../../../common/widgets/texts/section_heading.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
+import '../../controllers/product_controller.dart';
 import '../all_products/all_products.dart';
 import 'widgets/home_app_bar.dart';
 import 'widgets/home_categories.dart';
@@ -18,6 +20,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final productController = Get.put(ProductController());
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -71,10 +75,19 @@ class HomeScreen extends StatelessWidget {
                   const SizedBox(height: ZSizes.spaceBtwItems),
 
                   /// Popular Products
-                  ZGridLayout(
-                    itemCount: 4,
-                    itemBuilder: (_, index) => const ZProductCardVertical(),
-                  ),
+                  Obx(() {
+                    if (productController.isLoading.value) return const ZVerticalProductShimmer();
+                    if (productController.featuredProductes.isEmpty) {
+                      return Center(
+                        child: Text('No Data Found!', style: Theme.of(context).textTheme.bodyMedium),
+                      );
+                    } else {
+                      return ZGridLayout(
+                        itemCount: productController.featuredProductes.length,
+                        itemBuilder: (_, index) => ZProductCardVertical(product: productController.featuredProductes[index]),
+                      );
+                    }
+                  }),
                 ],
               ),
             ),
