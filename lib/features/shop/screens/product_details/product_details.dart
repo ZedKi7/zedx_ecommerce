@@ -4,6 +4,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:readmore/readmore.dart';
 
 import '../../../../common/widgets/texts/section_heading.dart';
+import '../../../../utils/constants/enums.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../models/product_model.dart';
 import '../product_reviews/product_reviews.dart';
@@ -26,7 +27,7 @@ class ProductDetailsScreen extends StatelessWidget {
         child: Column(
           children: [
             /// Product Image Slider
-            const ZProductImageSlider(),
+            ZProductImageSlider(product: product),
 
             /// Product Details
             Padding(
@@ -37,11 +38,11 @@ class ProductDetailsScreen extends StatelessWidget {
                   const ZRatingAndShare(),
 
                   /// Price, Title, Stock, Brand
-                  const ZProductMetaData(),
+                  ZProductMetaData(product: product),
 
                   /// Attributes
-                  const ZProductAttributes(),
-                  const SizedBox(width: ZSizes.spaceBtwSections),
+                  if (product.productType == ProductType.variable.toString()) ZProductAttributes(product: product),
+                  if (product.productType == ProductType.variable.toString()) const SizedBox(width: ZSizes.spaceBtwSections),
 
                   /// Checkout Button
                   SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () {}, child: const Text('Checkout'))),
@@ -50,14 +51,14 @@ class ProductDetailsScreen extends StatelessWidget {
                   /// Description
                   const ZSectionHeading(title: 'Description', showActionButton: false),
                   const SizedBox(width: ZSizes.spaceBtwItems),
-                  const ReadMoreText(
-                    'This is a product edscription for Blue Nike Sleeve less vest. There are more things that can be added ...',
+                  ReadMoreText(
+                    product.description ?? '',
                     trimLines: 2,
                     trimMode: TrimMode.Line,
                     trimCollapsedText: ' Show more',
                     trimExpandedText: ' Show less',
-                    moreStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
-                    lessStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
+                    moreStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
+                    lessStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
                   ),
 
                   /// Reviews

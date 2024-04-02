@@ -7,18 +7,21 @@ import '../../../../../common/widgets/texts/product_price_text.dart';
 import '../../../../../common/widgets/texts/product_title_text.dart';
 import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/enums.dart';
-import '../../../../../utils/constants/image_strings.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../../../../utils/helpers/helper_functions.dart';
+import '../../../controllers/product/product_controller.dart';
+import '../../../models/product_model.dart';
 
 class ZProductMetaData extends StatelessWidget {
-  const ZProductMetaData({
-    super.key,
-  });
+  const ZProductMetaData({super.key, required this.product});
+
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
     final dark = ZHelperFunctions.isDarkMode(context);
+    final productController = ProductController.instance;
+    final salePercentage = productController.calculateSalePrecentage(product.price, product.salePrice);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -27,27 +30,25 @@ class ZProductMetaData extends StatelessWidget {
         Row(
           children: [
             /// Sale Tag
-            Positioned(
-              top: 12,
-              child: ZRoundedContainer(
-                radius: ZSizes.sm,
-                backgroundColor: ZColors.secondary.withOpacity(0.8),
-                padding: const EdgeInsets.symmetric(horizontal: ZSizes.sm, vertical: ZSizes.xs),
-                child: Text('25%', style: Theme.of(context).textTheme.labelLarge!.apply(color: ZColors.black)),
-              ),
+            ZRoundedContainer(
+              radius: ZSizes.sm,
+              backgroundColor: ZColors.secondary.withOpacity(0.8),
+              padding: const EdgeInsets.symmetric(horizontal: ZSizes.sm, vertical: ZSizes.xs),
+              child: Text('$salePercentage%', style: Theme.of(context).textTheme.labelLarge!.apply(color: ZColors.black)),
             ),
             const SizedBox(width: ZSizes.spaceBtwItems),
 
             /// Price
-            Text('\$250', style: Theme.of(context).textTheme.titleSmall!.apply(decoration: TextDecoration.lineThrough)),
-            const SizedBox(width: ZSizes.spaceBtwItems),
-            const ZProductPriceText(price: '175', isLarge: true),
+            if (product.productType == ProductType.single.toString() && product.salePrice > 0)
+              Text('\$${product.price}', style: Theme.of(context).textTheme.titleSmall!.apply(decoration: TextDecoration.lineThrough)),
+            if (product.productType == ProductType.single.toString() && product.salePrice > 0) const SizedBox(width: ZSizes.spaceBtwItems),
+            ZProductPriceText(price: productController.getProductPrice(product), isLarge: true),
           ],
         ),
         const SizedBox(width: ZSizes.spaceBtwItems / 1.5),
 
         /// Title
-        const ZProductTitleText(title: 'Green Nike Sports Shirt'),
+        ZProductTitleText(title: product.title),
         const SizedBox(width: ZSizes.spaceBtwItems / 1.5),
 
         /// Stock Status
@@ -55,7 +56,7 @@ class ZProductMetaData extends StatelessWidget {
           children: [
             const ZProductTitleText(title: 'Status'),
             const SizedBox(width: ZSizes.spaceBtwItems / 1.5),
-            Text('In Stock', style: Theme.of(context).textTheme.titleMedium),
+            Text(productController.getProductStockStatus(product.stock), style: Theme.of(context).textTheme.titleMedium),
           ],
         ),
         const SizedBox(width: ZSizes.spaceBtwItems / 1.5),
@@ -64,12 +65,12 @@ class ZProductMetaData extends StatelessWidget {
         Row(
           children: [
             ZCircularImage(
-              image: ZImages.shoeIcon,
+              image: product.brand?.image ?? '',
               width: 32,
               height: 32,
               overlayColor: dark ? ZColors.white : ZColors.black,
             ),
-            const ZBrandTitleWithVerifiedIcon(title: 'Nike', brandTextSize: TextSizes.medium),
+            ZBrandTitleWithVerifiedIcon(title: product.brand?.name ?? '', brandTextSize: TextSizes.medium),
           ],
         ),
       ],

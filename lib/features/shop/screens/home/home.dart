@@ -9,7 +9,7 @@ import '../../../../common/widgets/shimmers/vertical_product_shimmer.dart';
 import '../../../../common/widgets/texts/section_heading.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
-import '../../controllers/product_controller.dart';
+import '../../controllers/product/product_controller.dart';
 import '../all_products/all_products.dart';
 import 'widgets/home_app_bar.dart';
 import 'widgets/home_categories.dart';
