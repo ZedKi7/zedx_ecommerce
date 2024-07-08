@@ -22,7 +22,7 @@ class BrandProductsScreen extends StatelessWidget {
               SizedBox(height: ZSizes.spaceBtwSections),
 
               /// Brand's Products
-              ZSortableProducts(),
+              ZSortableProducts(products: []),
             ],
           ),
         ),

@@ -71,7 +71,13 @@ class HomeScreen extends StatelessWidget {
                   const SizedBox(height: ZSizes.spaceBtwSections),
 
                   /// Heading
-                  ZSectionHeading(title: 'Popular Products', onPressed: () => Get.to(() => const AllProductsScreen())),
+                  ZSectionHeading(
+                    title: 'Popular Products',
+                    onPressed: () => Get.to(() => AllProductsScreen(
+                          title: 'Popular Products',
+                          futureMethod: productController.fetchAllFeaturedProducts(),
+                        )),
+                  ),
                   const SizedBox(height: ZSizes.spaceBtwItems),
 
                   /// Popular Products
