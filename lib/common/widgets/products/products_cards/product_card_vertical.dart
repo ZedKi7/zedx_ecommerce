@@ -52,15 +52,16 @@ class ZProductCardVertical extends StatelessWidget {
                   Center(child: ZRoundedImage(imageUrl: product.thumbnail, isNetworkImage: true)),
 
                   /// Discount Tag
-                  Positioned(
-                    top: 12,
-                    child: ZRoundedContainer(
-                      radius: ZSizes.sm,
-                      backgroundColor: ZColors.secondary.withOpacity(0.8),
-                      padding: const EdgeInsets.symmetric(horizontal: ZSizes.sm, vertical: ZSizes.xs),
-                      child: Text('$salePercentage%', style: Theme.of(context).textTheme.labelLarge!.apply(color: ZColors.black)),
+                  if (salePercentage != null)
+                    Positioned(
+                      top: 12,
+                      child: ZRoundedContainer(
+                        radius: ZSizes.sm,
+                        backgroundColor: ZColors.secondary.withOpacity(0.8),
+                        padding: const EdgeInsets.symmetric(horizontal: ZSizes.sm, vertical: ZSizes.xs),
+                        child: Text('$salePercentage%', style: Theme.of(context).textTheme.labelLarge!.apply(color: ZColors.black)),
+                      ),
                     ),
-                  ),
 
                   /// Favourite Icon Button
                   const Positioned(
