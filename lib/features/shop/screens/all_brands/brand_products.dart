@@ -34,7 +34,7 @@ class BrandProductsScreen extends StatelessWidget {
 
               /// Brand's Products
               FutureBuilder(
-                  future: brandController.getBrandProducts(brand.id),
+                  future: brandController.getBrandProducts(brandId: brand.id),
                   builder: (context, snapshot) {
                     const loader = ZVerticalProductShimmer();
                     final widget = ZCloudHelperFunctions.checkMultiRecordState(snapshot: snapshot, loader: loader);

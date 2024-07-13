@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-import '../../../../../common/widgets/brands/brand_showcase.dart';
 import '../../../../../common/widgets/layouts/grid_layout.dart';
 import '../../../../../common/widgets/products/products_cards/product_card_vertical.dart';
+import '../../../../../common/widgets/shimmers/vertical_product_shimmer.dart';
 import '../../../../../common/widgets/texts/section_heading.dart';
-import '../../../../../utils/constants/image_strings.dart';
 import '../../../../../utils/constants/sizes.dart';
+import '../../../../../utils/helpers/cloud_helper_functions.dart';
+import '../../../controllers/category_controller.dart';
 import '../../../models/category_model.dart';
-import '../../../models/product_model.dart';
+import '../../all_products/all_products.dart';
+import 'category_brands.dart';
 
 class ZCategoryTab extends StatelessWidget {
   const ZCategoryTab({super.key, required this.category});
@@ -16,6 +19,8 @@ class ZCategoryTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final categoryController = CategoryController.instance;
+
     return ListView(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -25,15 +30,32 @@ class ZCategoryTab extends StatelessWidget {
           child: Column(
             children: [
               /// Brands
-              const ZBrandShowcase(images: [ZImages.productImage3, ZImages.productImage2, ZImages.productImage1]),
+              CategoryBrands(category: category),
               const SizedBox(height: ZSizes.spaceBtwItems),
 
               /// Products
-              ZSectionHeading(title: 'You might like', onPressed: () {}),
-              const SizedBox(height: ZSizes.spaceBtwItems),
+              FutureBuilder(
+                  future: categoryController.getCategoryProducts(categoryId: category.id),
+                  builder: (context, snapshot) {
+                    final widget = ZCloudHelperFunctions.checkMultiRecordState(snapshot: snapshot, loader: const ZVerticalProductShimmer());
 
-              ZGridLayout(itemCount: 4, itemBuilder: (_, index) => ZProductCardVertical(product: ProductModel.empty())),
-              const SizedBox(height: ZSizes.spaceBtwSections),
+                    if (widget != null) return widget;
+
+                    final products = snapshot.data!;
+                    return Column(
+                      children: [
+                        ZSectionHeading(
+                          title: 'You might like',
+                          onPressed: () => Get.to(() => AllProductsScreen(
+                                title: category.name,
+                                futureMethod: categoryController.getCategoryProducts(categoryId: category.id, limit: -1),
+                              )),
+                        ),
+                        const SizedBox(height: ZSizes.spaceBtwItems),
+                        ZGridLayout(itemCount: products.length, itemBuilder: (_, index) => ZProductCardVertical(product: products[index])),
+                      ],
+                    );
+                  }),
             ],
           ),
         ),
