@@ -11,11 +11,11 @@ import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/helpers/helper_functions.dart';
 import '../../../styles/shadow_styles.dart';
 import '../../custom_shapes/containers/rounded_container.dart';
-import '../../icons/circular_icon.dart';
 import '../../images/rounded_image.dart';
 import '../../texts/brand_title_with_verified_icon.dart';
 import '../../texts/product_price_text.dart';
 import '../../texts/product_title_text.dart';
+import '../favorite_icon/favorite_icon.dart';
 
 class ZProductCardVertical extends StatelessWidget {
   const ZProductCardVertical({super.key, required this.product});
@@ -63,14 +63,11 @@ class ZProductCardVertical extends StatelessWidget {
                       ),
                     ),
 
-                  /// Favourite Icon Button
-                  const Positioned(
+                  /// Favorite Icon Button
+                  Positioned(
                     top: 0,
                     right: 0,
-                    child: ZCircularIcon(
-                      icon: Iconsax.heart5,
-                      color: Colors.red,
-                    ),
+                    child: ZFavoriteIcon(productId: product.id),
                   ),
                 ],
               ),

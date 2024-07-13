@@ -23,7 +23,7 @@ class ZAppRoutes {
   static final pages = [
     GetPage(name: ZRoutes.home, page: () => const HomeScreen()),
     GetPage(name: ZRoutes.store, page: () => const StoreScreen()),
-    GetPage(name: ZRoutes.favourites, page: () => const FavouriteScreen()),
+    GetPage(name: ZRoutes.favourites, page: () => const FavoriteScreen()),
     GetPage(name: ZRoutes.settings, page: () => const SettingsScreen()),
     GetPage(name: ZRoutes.productDetails, page: () => ProductDetailsScreen(product: ProductModel.empty())),
     GetPage(name: ZRoutes.productReviews, page: () => const ProductReviewsScreen()),
