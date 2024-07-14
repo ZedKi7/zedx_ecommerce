@@ -32,7 +32,7 @@ class ZHomeCategories extends StatelessWidget {
             return ZVerticalImageText(
               title: category.name,
               image: category.image,
-              onTap: () => Get.to(() => const SubCategoriesScreen()),
+              onTap: () => Get.to(() => SubCategoriesScreen(category: category)),
             );
           },
         ),

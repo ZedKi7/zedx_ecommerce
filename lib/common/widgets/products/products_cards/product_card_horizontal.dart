@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
+import '../../../../features/shop/controllers/product/product_controller.dart';
+import '../../../../features/shop/models/product_model.dart';
 import '../../../../utils/constants/colors.dart';
-import '../../../../utils/constants/image_strings.dart';
+import '../../../../utils/constants/enums.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/helpers/helper_functions.dart';
 import '../../custom_shapes/containers/rounded_container.dart';
@@ -13,11 +15,15 @@ import '../../texts/product_title_text.dart';
 import '../favorite_icon/favorite_icon.dart';
 
 class ZProductCardHorizontal extends StatelessWidget {
-  const ZProductCardHorizontal({super.key});
+  const ZProductCardHorizontal({super.key, required this.product});
+
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
     final dark = ZHelperFunctions.isDarkMode(context);
+    final productController = ProductController.instance;
+    final salePercentage = productController.calculateSalePrecentage(product.price, product.salePrice);
 
     return Container(
       width: 310,
@@ -36,24 +42,29 @@ class ZProductCardHorizontal extends StatelessWidget {
             child: Stack(
               children: [
                 /// Thumbnail Image
-                const SizedBox(height: 120, width: 120, child: ZRoundedImage(imageUrl: ZImages.productImage1)),
-
-                /// Discount Tag
-                Positioned(
-                  top: 12,
-                  child: ZRoundedContainer(
-                    radius: ZSizes.sm,
-                    backgroundColor: ZColors.secondary.withOpacity(0.8),
-                    padding: const EdgeInsets.symmetric(horizontal: ZSizes.sm, vertical: ZSizes.xs),
-                    child: Text('25%', style: Theme.of(context).textTheme.labelLarge!.apply(color: ZColors.black)),
-                  ),
+                SizedBox(
+                  height: 120,
+                  width: 120,
+                  child: ZRoundedImage(imageUrl: product.thumbnail, isNetworkImage: true),
                 ),
 
+                /// Discount Tag
+                if (salePercentage != null)
+                  Positioned(
+                    top: 12,
+                    child: ZRoundedContainer(
+                      radius: ZSizes.sm,
+                      backgroundColor: ZColors.secondary.withOpacity(0.8),
+                      padding: const EdgeInsets.symmetric(horizontal: ZSizes.sm, vertical: ZSizes.xs),
+                      child: Text('$salePercentage%', style: Theme.of(context).textTheme.labelLarge!.apply(color: ZColors.black)),
+                    ),
+                  ),
+
                 /// Favorite Icon Button
-                const Positioned(
+                Positioned(
                   top: 0,
                   right: 0,
-                  child: ZFavoriteIcon(productId: ''),
+                  child: ZFavoriteIcon(productId: product.id),
                 ),
               ],
             ),
@@ -65,13 +76,14 @@ class ZProductCardHorizontal extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(top: ZSizes.sm, left: ZSizes.sm),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Column(
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ZProductTitleText(title: 'Green Nike Air Shoes', smallSize: true),
-                      SizedBox(height: ZSizes.spaceBtwItems / 2),
-                      ZBrandTitleWithVerifiedIcon(title: 'Nike'),
+                      ZProductTitleText(title: product.title, smallSize: true),
+                      const SizedBox(height: ZSizes.spaceBtwItems / 2),
+                      ZBrandTitleWithVerifiedIcon(title: product.brand!.name),
                     ],
                   ),
                   const Spacer(),
@@ -79,7 +91,24 @@ class ZProductCardHorizontal extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       /// Price
-                      const Flexible(child: ZProductPriceText(price: '256.0')),
+                      Flexible(
+                        child: Column(
+                          children: [
+                            if (product.productType == ProductType.single.toString() && product.salePrice > 0)
+                              Padding(
+                                padding: const EdgeInsets.only(left: ZSizes.sm),
+                                child: Text(
+                                  '\$${product.price.toString()}',
+                                  style: Theme.of(context).textTheme.labelMedium!.apply(decoration: TextDecoration.lineThrough),
+                                ),
+                              ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: ZSizes.sm),
+                              child: ZProductPriceText(price: productController.getProductPrice(product)),
+                            ),
+                          ],
+                        ),
+                      ),
 
                       /// Add to Cart Button
                       Container(
