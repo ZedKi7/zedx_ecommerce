@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
 
 import '../../../../features/shop/controllers/product/product_controller.dart';
 import '../../../../features/shop/models/product_model.dart';
@@ -16,6 +15,7 @@ import '../../texts/brand_title_with_verified_icon.dart';
 import '../../texts/product_price_text.dart';
 import '../../texts/product_title_text.dart';
 import '../favorite_icon/favorite_icon.dart';
+import 'add_to_cart_button.dart';
 
 class ZProductCardVertical extends StatelessWidget {
   const ZProductCardVertical({super.key, required this.product});
@@ -111,20 +111,7 @@ class ZProductCardVertical extends StatelessWidget {
                 ),
 
                 /// Add to Cart Button
-                Container(
-                  decoration: const BoxDecoration(
-                    color: ZColors.dark,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(ZSizes.cardRadiusMd),
-                      bottomRight: Radius.circular(ZSizes.productImageRadius),
-                    ),
-                  ),
-                  child: const SizedBox(
-                    width: ZSizes.iconLg * 1.2,
-                    height: ZSizes.iconLg * 1.2,
-                    child: Center(child: Icon(Iconsax.add, color: ZColors.white)),
-                  ),
-                ),
+                ProductCardAddToCartButton(product: product),
               ],
             ),
           ],

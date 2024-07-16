@@ -32,8 +32,8 @@ class ZHomeAppBar extends StatelessWidget {
           }),
         ],
       ),
-      actions: [
-        ZCartCounterIcon(onPressed: () {}, iconColor: ZColors.white, counterBgColor: ZColors.black, counterTextColor: ZColors.white),
+      actions: const [
+        ZCartCounterIcon(iconColor: ZColors.white, counterBgColor: ZColors.black, counterTextColor: ZColors.white),
       ],
     );
   }

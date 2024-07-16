@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 
 import '../../models/product_model.dart';
 import '../../models/product_variation_model.dart';
+import '../cart_controller.dart';
 import 'images_controller.dart';
 
 class VariationController extends GetxController {
@@ -26,6 +27,11 @@ class VariationController extends GetxController {
     // Show the selected Variation image as the Main Image
     if (selectedVariation.image.isNotEmpty) {
       ImagesController.instance.selectedProductImage.value = selectedVariation.image;
+    }
+
+    if (selectedVariation.id.isNotEmpty) {
+      final cartController = CartController.instance;
+      cartController.productQuantityInCart.value = cartController.getVariationQuantityInCart(product.id, selectedVariation.id);
     }
 
     // Assing the Selected Variation

@@ -31,8 +31,8 @@ class StoreScreen extends StatelessWidget {
       child: Scaffold(
         appBar: ZAppBar(
           title: Text('Store', style: Theme.of(context).textTheme.headlineMedium),
-          actions: [
-            ZCartCounterIcon(onPressed: () {}),
+          actions: const [
+            ZCartCounterIcon(),
           ],
         ),
         body: NestedScrollView(
