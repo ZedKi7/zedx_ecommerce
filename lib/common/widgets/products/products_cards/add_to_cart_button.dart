@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import '../../../../features/shop/controllers/cart_controller.dart';
+import '../../../../features/shop/controllers/product/cart_controller.dart';
 import '../../../../features/shop/models/product_model.dart';
 import '../../../../features/shop/screens/product_details/product_details.dart';
 import '../../../../utils/constants/colors.dart';

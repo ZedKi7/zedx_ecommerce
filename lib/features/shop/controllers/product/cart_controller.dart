@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
 
-import '../../../common/widgets/loaders/loaders.dart';
-import '../../../utils/constants/enums.dart';
-import '../../../utils/local_storage/storage_utility.dart';
-import '../models/cart_item_model.dart';
-import '../models/product_model.dart';
-import 'product/variation_controller.dart';
+import '../../../../common/widgets/loaders/loaders.dart';
+import '../../../../utils/constants/enums.dart';
+import '../../../../utils/local_storage/storage_utility.dart';
+import '../../models/cart_item_model.dart';
+import '../../models/product_model.dart';
+import 'variation_controller.dart';
 
 class CartController extends GetxController {
   static CartController get instance => Get.find();

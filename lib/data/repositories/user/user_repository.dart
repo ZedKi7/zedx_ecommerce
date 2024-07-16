@@ -35,7 +35,7 @@ class UserRepository extends GetxController {
   /// Function to fetch user details based on user ID.
   Future<UserModel> fetchUserDetails() async {
     try {
-      final documentSnapshot = await _db.collection('Users').doc(AuthenticationRepository.instance.authUser?.uid).get();
+      final documentSnapshot = await _db.collection('Users').doc(AuthenticationRepository.instance.authUser.uid).get();
       if (documentSnapshot.exists) {
         return UserModel.fromSnapshot(documentSnapshot);
       } else {
@@ -70,7 +70,7 @@ class UserRepository extends GetxController {
   /// Function to update any field in specific Users collection.
   Future<void> updateSpecificFields(Map<String, dynamic> json) async {
     try {
-      await _db.collection('Users').doc(AuthenticationRepository.instance.authUser?.uid).update(json);
+      await _db.collection('Users').doc(AuthenticationRepository.instance.authUser.uid).update(json);
     } on FirebaseException catch (e) {
       throw ZFirebaseException(e.code).message;
     } on FormatException catch (_) {

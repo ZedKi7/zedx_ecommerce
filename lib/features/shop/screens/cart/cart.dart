@@ -6,7 +6,7 @@ import '../../../../common/widgets/loaders/animation_loader_widget.dart';
 import '../../../../navigation_menu.dart';
 import '../../../../utils/constants/image_strings.dart';
 import '../../../../utils/constants/sizes.dart';
-import '../../controllers/cart_controller.dart';
+import '../../controllers/product/cart_controller.dart';
 import '../checkout/checkout.dart';
 import 'widgets/cart_items.dart';
 

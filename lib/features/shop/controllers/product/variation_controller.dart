@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 
 import '../../models/product_model.dart';
 import '../../models/product_variation_model.dart';
-import '../cart_controller.dart';
+import 'cart_controller.dart';
 import 'images_controller.dart';
 
 class VariationController extends GetxController {

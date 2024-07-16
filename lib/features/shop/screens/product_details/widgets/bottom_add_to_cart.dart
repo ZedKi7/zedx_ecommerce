@@ -6,7 +6,7 @@ import '../../../../../common/widgets/icons/circular_icon.dart';
 import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../../../../utils/helpers/helper_functions.dart';
-import '../../../controllers/cart_controller.dart';
+import '../../../controllers/product/cart_controller.dart';
 import '../../../models/product_model.dart';
 
 class ZBottomAddToCart extends StatelessWidget {

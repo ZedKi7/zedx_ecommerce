@@ -3,11 +3,16 @@ import 'package:get/get.dart';
 
 import '../../../common/widgets/loaders/circular_loader.dart';
 import '../../../common/widgets/loaders/loaders.dart';
+import '../../../common/widgets/texts/section_heading.dart';
 import '../../../data/repositories/addresses/address_repository.dart';
 import '../../../utils/constants/image_strings.dart';
+import '../../../utils/constants/sizes.dart';
+import '../../../utils/helpers/cloud_helper_functions.dart';
 import '../../../utils/helpers/network_manager.dart';
 import '../../../utils/popups/full_screen_loader.dart';
 import '../models/address_model.dart';
+import '../screens/address/add_new_address.dart';
+import '../screens/address/widgets/single_address.dart';
 
 class AddressController extends GetxController {
   static AddressController get instance => Get.find();
@@ -108,6 +113,48 @@ class AddressController extends GetxController {
       ZFullScreenLoader.stopLoading();
       ZLoaders.errorSnackBar(title: 'Something went wrong', message: e.toString());
     }
+  }
+
+  Future<dynamic> selectNewAddressPopup(BuildContext context) {
+    return showModalBottomSheet(
+      context: context,
+      builder: (_) => Container(
+        padding: const EdgeInsets.all(ZSizes.lg),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const ZSectionHeading(title: 'Select Address', showActionButton: false),
+            FutureBuilder(
+              future: getAllUserAddresses(),
+              builder: (_, snapshot) {
+                final response = ZCloudHelperFunctions.checkMultiRecordState(snapshot: snapshot);
+                if (response != null) return response;
+
+                return ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (_, index) => ZSingleAddress(
+                    address: snapshot.data![index],
+                    onTap: () async {
+                      await selectAddress(snapshot.data![index]);
+                      Get.back();
+                    },
+                  ),
+                );
+              },
+            ),
+            const SizedBox(height: ZSizes.defaultSpace * 2),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () => Get.to(() => const AddNewAddressScreen()),
+                child: const Text('Add new address'),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   void resetFormFields() {

@@ -3,13 +3,14 @@ import 'package:get/get.dart';
 
 import '../../../../common/widgets/appbar/appbar.dart';
 import '../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
+import '../../../../common/widgets/loaders/loaders.dart';
 import '../../../../common/widgets/products/cart/coupon_code.dart';
-import '../../../../common/widgets/success_screen/success_screen.dart';
-import '../../../../navigation_menu.dart';
 import '../../../../utils/constants/colors.dart';
-import '../../../../utils/constants/image_strings.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/helpers/helper_functions.dart';
+import '../../../../utils/helpers/pricing_calculator.dart';
+import '../../controllers/product/cart_controller.dart';
+import '../../controllers/product/order_controller.dart';
 import '../cart/widgets/cart_items.dart';
 import 'widgets/billing_address_section.dart';
 import 'widgets/billing_amount_section.dart';
@@ -20,6 +21,9 @@ class CheckoutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final subTotal = CartController.instance.totalCartPrice.value;
+    final orderController = Get.put(OrderController());
+    final totalAmount = ZPricingCalculator.calculateTotalPrice(subTotal, 'US');
     final dark = ZHelperFunctions.isDarkMode(context);
 
     return Scaffold(
@@ -71,15 +75,10 @@ class CheckoutScreen extends StatelessWidget {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(ZSizes.defaultSpace),
         child: ElevatedButton(
-            onPressed: () => Get.to(
-                  () => SuccessScreen(
-                    image: ZImages.successfulPaymentIcon,
-                    title: 'Payment Success!',
-                    subTitle: 'Your items will be shipped soon!',
-                    onPressed: () => Get.offAll(() => const NavigationMenu()),
-                  ),
-                ),
-            child: const Text('Checkout \$256.0')),
+            onPressed: subTotal > 0
+                ? () => orderController.processOrder(totalAmount)
+                : () => ZLoaders.warningSnackBar(title: 'Empty Cart', message: 'Add items in the cart in order to proceed.'),
+            child: Text('Checkout \$$totalAmount')),
       ),
     );
   }

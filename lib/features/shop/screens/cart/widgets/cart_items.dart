@@ -5,7 +5,7 @@ import '../../../../../common/widgets/products/cart/cart_item.dart';
 import '../../../../../common/widgets/products/cart/product_quantity_with_add_remove_buttons.dart';
 import '../../../../../common/widgets/texts/product_price_text.dart';
 import '../../../../../utils/constants/sizes.dart';
-import '../../../controllers/cart_controller.dart';
+import '../../../controllers/product/cart_controller.dart';
 
 class ZCartItems extends StatelessWidget {
   const ZCartItems({
